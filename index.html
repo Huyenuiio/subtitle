@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- custom css  -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">	
+    <title>Carnival Phantasm</title>
+    <link rel="icon" href="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10012-MNLVctKXaIAf.jpg" type="jpg">
+    <style>
+        /* Your CSS styles go here */
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            text-transform: capitalize;
+            font-weight: normal;
+            font-family: 'Quicksand', sans-serif;
+        }
+        body {
+            background: #0f0f0f;
+            font-family: 'Quicksand', sans-serif;
+              /* Thay đổi con trỏ chuột khi di chuyển */
+              cursor: url('https://github.com/Huyenuiio/Fate-Zero/raw/main/cursor%20(2).cur'), auto;
+        }
+        body:hover {
+    /* Thay đổi con trỏ chuột khi di chuyển lên một phần tử */
+    cursor: url('https://github.com/Huyenuiio/Fate-Zero/raw/main/cursor%20(2).cur'), auto;
+}
+body:active {
+    /* Thay đổi con trỏ chuột khi nhấp chuột */
+    cursor: url('https://github.com/Huyenuiio/Fate-Zero/raw/main/cursor%20(2).cur'), auto;
+}
+a:hover {
+    cursor: url('https://github.com/Huyenuiio/Fate-Zero/raw/main/cursor%20(1).cur'), auto;
+}
+
+
+
+
+
+
+
+        .heading {
+            color: #728197;
+            font-size: 40px;
+            text-align: center;
+            padding: 10px;  
+            font-weight: 700;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 5px 5%;
+        }
+        .container .main-video {
+            background: #1a1a1a;
+            border-radius: 5px;
+            padding: 10px;
+          
+        }
+        .container .main-video .video .iframe {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            height: 431px; 
+            border:none; 
+            
+        }
+        .container .main-video .title {
+            background: rgb(33 33 33);
+            color: rgb(255, 250, 250);
+            font-size: 23px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+        .container .playlist {
+            background: rgb(33 33 33);
+            border-radius: 5px;
+            height: 520px;
+            overflow-y: scroll;
+        }
+        .container .playlist::-webkit-scrollbar {
+            width: 7px;
+        }
+        .container .playlist::-webkit-scrollbar-track {
+            background: #ccc;
+            border-radius: 50px; 
+        }
+        .container .playlist::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 50px; 
+        }
+        .container .playlist .vid {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0,0,0,.1);
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+        .container .playlist .vid:hover{
+            background: rgb(39 39 39);
+            cursor: url('https://github.com/Huyenuiio/Fate-Zero/raw/main/cursor%20(1).cur'), auto;
+            border: 1px solid white;
+        }
+        .container .playlist .vid:hover .title{
+            color: #3db4d0;
+        }
+        .container .playlist .vid.active{
+            background: rgb(26 35 49);
+            border: 1px solid white;
+        }
+        .container .playlist .vid.active .title{
+            color: #5eead4;
+            font-weight: 700;
+        }
+        .container .playlist .vid .title{
+            color: hsla(0,0%,100%,.5);
+            font-size: 17px;
+        }
+        @media (max-width:991px){   
+            .container {
+                grid-template-columns: 1.5fr 1fr;
+                padding: 10px;
+            }}
+        @media (max-width:768px){
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 1540px){
+.media-page-unscoped .content .grid-wrap {
+    grid-template-columns: repeat(2, 1fr);
+}}
+@media (max-width: 1040px){
+.media-page-unscoped .content .grid-wrap {
+    grid-template-columns: repeat(1, 1fr);
+}
+}
+        .container .playlist .vid img{
+    width: 100px;
+    border-radius: 5px;
+}
+
+
+ .playlist .vid iframe{
+    display: none;
+ }
+/* ------------------------------------------------hieu-ung-chuyen-dong-luot-len-luot-xuong---------------------------------------------------------------------- */
+
+.container, .video-list, .heading {
+    /* Thời gian chuyển đổi */
+    transition: all 0.5s ease-in-out;
+}
+
+.container:hover, .video-list:hover, .heading:hover {
+    /* Hiệu ứng lướt lên */
+    transform: translateY(-10px);
+}
+
+.container:active, .video-list:active, .heading:active {
+    /* Hiệu ứng lướt xuống */
+    transform: translateY(10px);
+}
+/* _____________________________________________________________________________________________________________________________ */
+
+/* phần gird */
+.media-page-unscoped .content .grid-wrap {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.container .grid-wrap {
+
+
+     
+    display: grid;
+    grid-column-gap: 30px;
+    grid-row-gap: 15px;
+    
+}
+
+
+
+
+
+.container h2 {
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+h1, h2 {
+    color: #fffafa;
+    margin: 0;
+    padding: 0;
+}
+
+
+.media-preview-card[data-v-6dc78144] {
+    background: #9fadbd;
+    border-radius: 3px;
+    display: inline-grid;
+    grid-template-columns: 85px auto;
+    height: 115px;
+    max-height: 115px;
+}
+
+.cover[data-v-6dc78144] {
+background-position: 50%;
+background-repeat: no-repeat;
+background-size: cover;
+border-radius: 3px 0 0 3px;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover{
+    border: 1px solid white;
+}
+
+[lazy=error], [lazy=loaded] {
+    opacity: 1 !important;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+    transition: .15s;
+    outline: 0;
+    background-color: transparent;
+}
+.cover .image-overlay[data-v-6dc78144], .cover .image-text[data-v-6dc78144] {
+    display: none;
+}
+/* trên là phần thẻ a */
+/* dưới là kế bên thẻ a */
+.content[data-v-6dc78144] {
+    background-color: rgb(33 33 33);
+    border-radius: 0 3px 3px 0;
+    padding: 12px;
+    position: relative;
+}
+.content[data-v-6dc78144]:hover{
+    border:1px solid white;
+}
+
+.info-header[data-v-6dc78144]{
+    color: #3DB4F2;
+    /* font-size: 1.2rem; */
+    font-size: 14px;
+    font-weight: 500;
+    /* margin-bottom: 8px; */
+}
+/* tới phần title */
+
+.title[data-v-6dc78144] {
+    display: -webkit-box;
+    font-size: 1.4rem;
+    overflow: hidden;
+    word-break: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    color: #9fadbd;
+    font-weight: 700;
+    /* margin-bottom: 10px; */
+}
+
+.info[data-v-6dc78144] {
+    bottom: 12px;
+    /* color: rgb(133, 150, 165); */
+    color: #8596A5;
+    font-size: 1.2rem;
+    left: 12px;
+    position: absolute;
+}
+
+
+    </style>
+</head>
+<body>
+    <h3 class="heading">Carnival Phantasm</h3>
+    <div class="container media-page-unscoped ">
+        <div class="main-video">
+            <div class="video">
+                <iframe class="iframe" id="mainVideo" src="https://vidsrc.to/embed/tv/tt11126994/1/1" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0"></iframe>
+                <h3 class="title" id="mainTitle">Tập 1</h3>
+            </div>
+        </div>
+
+        <div class="playlist">
+            <!-- Thêm các video vào playlist ở đây -->
+            <div class="vid active " data-src="https://vidsrc.to/embed/tv/tt11126994/1/1" data-title="Tập 1">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/Z2Q94xqJD8sq8rO/VmgwL0QW2qUK6eY.jpg" alt="poster">
+
+                <h3 class="title">Tập 1</h3>
+               
+            </div>
+            <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="" data-title="Tập 2">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/qMDvyyej1pfzPAP/VG6JjZpDgOiKeRO.jpg" alt="poster">
+
+                <h3 class="title">Tập 2</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="" data-title="Tập 3">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/ZD2LGl4RJMsqeGk/GA3KWWJBBlsoeO.jpg" alt="poster">
+
+                <h3 class="title">Tập 3</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/yRIFIQXkB" data-title="Tập 4">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/8ORmJKl3DyIoxPk/2be3w1xk7WTRlk.jpg" alt="poster">
+
+                <h3 class="title">Tập 4</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/fDvkxa3E1" data-title="Tập 5">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/RqR00218bYHd3rW/gP1XAm6AYJHqj3d.jpg" alt="poster">
+
+                <h3 class="title">Tập 5</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/ctoFYyngv" data-title="Tập 6">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/j4rzwJRq8bUz1v8/xPLOoLRXJ3hDYJ.jpg" alt="poster">
+
+                <h3 class="title">Tập 6</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/k7mG_yW5q" data-title="Tập 7">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/a4rz0vmRDotQBr/Xwp4Vy2JzLiDppq.jpg" alt="poster">
+
+                <h3 class="title">Tập 7</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/UB8sHu9Wn" data-title="Tập 8">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/Y1LywGAkvkcvb3Y/Qd66YwaojXs0xXO.jpg" alt="poster">
+
+                <h3 class="title">Tập 8</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/K2QntNuQ3" data-title="Tập 9">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/Bj60XKxx4yUK1l/08bOjGXmkafbO7B.jpg" alt="poster">
+
+                <h3 class="title">Tập 9</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/A1f5cAceQ" data-title="Tập 10">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/qjaagV9Dvkczqj4/MYwXVRk0l2HmaV3.jpg" alt="poster">
+
+                <h3 class="title">Tập 10</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/X_lUsDDZj" data-title="Tập 11">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/3BwAwa9zGlcdqzb/QeMV3rGeqgH00RD.jpg" alt="poster">
+
+                <h3 class="title">Tập 11</h3>
+               
+            </div>
+             <!-- Lặp lại quá trình này cho mỗi video trong playlist -->
+            <div class="vid active " data-src="https://short.ink/jC5gFPEG0" data-title="Tập 12">
+                <iframe src="" width="100" height="75" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0" >
+                </iframe>
+                <img   style="filter: invert(0);"     src="https://thumb.tapecontent.net/thumb/WDYRzozj3rsbwzr/Wym7mq8zpwubV7J.jpg" alt="poster">
+
+                <h3 class="title">Tập 12</h3>
+               
+            </div>
+            
+           
+            
+
+
+
+        </div>
+
+        <div class="relations">
+            <h2>Relations</h2> 
+        <div class="grid-wrap">
+<div     data-v-6dc78144           class="media-preview-card">
+            <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"        style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx15927-QtnfcEJ6epUZ.jpg);"   href="#" >
+    
+           <div       data-v-6dc78144 class="image-text">
+            <div    data-v-4650c4e0 >Câu chuyện bên lề</div>
+           </div>
+           <!--  -->
+            </a>
+            <div data-v-6dc78144   class="content">
+                <div data-v-6dc78144 class="info-header">                       
+
+                        <div   data-v-4650c4e0   data-v-6dc78144 >Câu chuyện bên lề</div>
+                </div>
+                    <a data-v-6dc78144   href="#"  class="title">Carnival Phantasm: HibiChika Special</a>
+                <div data-v-6dc78144 class="info">Special · Hoàn thành</div>
+            </div>
+
+
+        </div>
+
+
+<!--  -->
+        <div     data-v-6dc78144           class="media-preview-card">
+            <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"        style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx169-ATwPxULRSDRr.jpg);"  href="###" >
+                
+           <div       data-v-6dc78144 class="image-text">
+            <div    data-v-4650c4e0 >Character</div>
+           </div>
+           <!--  -->
+            </a>
+            <div data-v-6dc78144   class="content">
+                <div data-v-6dc78144 class="info-header">                       
+
+                        <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+                </div>
+                    <a data-v-6dc78144   href="####"  class="title">Lunar Legend Tsukihime</a>
+                <div data-v-6dc78144 class="info">TV · Đã hoàn thành</div>
+            </div>
+
+
+        </div>
+
+<!--  -->
+
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx356-mTpMvtillumS.png);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">Fate/stay night</a>
+        <div data-v-6dc78144 class="info">TV · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx19603-ZIwcXJeIJV3H.jpg);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">Fate/stay night: Unlimited Blade Works</a>
+        <div data-v-6dc78144 class="info">TV · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx2593-irF8xIuAOKUc.jpg);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">the Garden of sinners Chapter 1: Thanatos. (Overlooking View)</a>
+        <div data-v-6dc78144 class="info">Movie · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx6922-g3hsIYOWGXL8.jpg);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">Fate/stay night: Unlimited Blade Works (Movie)</a>
+        <div data-v-6dc78144 class="info">Movie · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="https://huyenuiio.github.io/Fate-Zero/"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10087-el5Bo1VMZwsU.png);"  href="https://huyenuiio.github.io/Fate-Zero/" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="https://huyenuiio.github.io/Fate-Zero/"  class="title">Fate/Zero</a>
+        <div data-v-6dc78144 class="info">TV · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx12565-paVJhzp4BrF0.jpg);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Character</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Character</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">Fate/Prototype</a>
+        <div data-v-6dc78144 class="info">OVA · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+
+<!--  -->
+<div     data-v-6dc78144           class="media-preview-card">
+    <a    data-v-6dc78144       class="cover"    data-src="#"   lazy="loaded"       
+    
+    style="background-image: url(https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx127149-7dzvudxMb9ep.jpg);"  href="###" >
+        
+   <div       data-v-6dc78144 class="image-text">
+    <div    data-v-4650c4e0 >Other</div>
+   </div>
+   <!--  -->
+    </a>
+    <div data-v-6dc78144   class="content">
+        <div data-v-6dc78144 class="info-header">                       
+
+                <div   data-v-4650c4e0   data-v-6dc78144 >Other</div>
+        </div>
+            <a data-v-6dc78144   href="####"  class="title">Fate/Grand Carnival</a>
+        <div data-v-6dc78144 class="info">OVA · Đã hoàn thành</div>
+    </div>
+
+
+</div>
+
+<!--  -->
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+// Danh sách các video trong playlist
+var playlist = document.querySelectorAll('.playlist .vid');
+
+// Lặp qua từng video trong playlist
+for (let i = 0; i < playlist.length; i++) {
+    // Thêm sự kiện click cho mỗi video
+    playlist[i].addEventListener('click', function() {
+        // Xóa class 'active' khỏi tất cả các video
+        for (let j = 0; j < playlist.length; j++) {
+            playlist[j].classList.remove('active');
+        }
+
+        // Thêm class 'active' cho video được chọn
+        this.classList.add('active');
+
+        // Lấy src và tiêu đề của video được chọn
+        var selectedVideoSrc = this.dataset.src;
+        var selectedVideoTitle = this.dataset.title;
+
+        // Lưu src và tiêu đề của video được chọn vào localStorage
+        localStorage.setItem('selectedVideoSrc', selectedVideoSrc);
+        localStorage.setItem('selectedVideoTitle', selectedVideoTitle);
+
+        // Lấy iframe và tiêu đề hiện tại trong main-video
+        var currentVideo = document.querySelector('.main-video .video iframe');
+        var currentTitle = document.querySelector('.main-video .video .title');
+
+        // Thay thế src và tiêu đề của video hiện tại bằng src và tiêu đề của video được chọn
+        currentVideo.src = selectedVideoSrc;
+        currentTitle.innerText = selectedVideoTitle;
+    });
+}
+
+// Kích hoạt video đầu tiên hoặc video được chọn trước đó khi trang web được tải
+window.onload = function() {
+    var selectedVideoSrc = localStorage.getItem('selectedVideoSrc');
+    var selectedVideoTitle = localStorage.getItem('selectedVideoTitle');
+
+    if (selectedVideoSrc && selectedVideoTitle) {
+        // Nếu có video được chọn trước đó, chọn video đó
+        var selectedVideo = document.querySelector('.playlist .vid[data-src="' + selectedVideoSrc + '"]');
+        if (selectedVideo) {
+            selectedVideo.click();
+        }
+    } else {
+        // Nếu không có video được chọn trước đó, chọn video đầu tiên
+        var firstVideo = document.querySelector('.playlist .vid');
+        if (firstVideo) {
+            firstVideo.click();
+        }
+    }
+
+    // Kiểm tra xem người dùng đã nhìn thấy thông báo chưa
+    if (!localStorage.getItem('adblockPromptShown')) {
+        // Hiển thị thông báo cho người dùng
+        var userResponse = confirm("Chúng tôi khuyên bạn nên cài đặt tiện ích Adblock Plus để có trải nghiệm tốt nhất. Mỗi khi tải trang web bạn sẽ thấy các tập phim sáng lên, đó là lúc hàm Javascript đang chạy để tìm lại tập phim mà bạn đã xem trước đó mất khoảng hơn 10s tùy vào độ dài của phim. Nếu là lần đầu bạn truy cập vào thì web sẽ chọn tập 1 cho bạn, hãy để hàm chạy rồi mới thao tác trên web nha. Nhấn ok cài đặt trình chặn quảng cáo, nhấn hủy để ủng hộ tôi <3");
+
+        // Nếu người dùng nhấn 'OK', chuyển hướng họ đến trang cài đặt của Adblock Plus
+        if (userResponse) {
+            window.location.href = "https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb";
+        }
+
+        // Đánh dấu rằng người dùng đã nhìn thấy thông báo
+        localStorage.setItem('adblockPromptShown', 'true');
+    }
+};
+
+
+
+  
+
+
+    </script>
+</body>
+</html>
